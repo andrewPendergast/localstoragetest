@@ -10,14 +10,17 @@
 <script>
 $(document).ready(function() {
   var currentTime = new Date();
-  if (localStorage.getItem("alert") >= currentTime.getDate()) {
+  var localStorageResult = localStorage.getItem("alert")
+  if (localStorageResult >= currentTime ) {
     $('#message').hide();
+    console.log(localStorageResult.toISOString);
   }
  });
 function setLocalStorage(){
-  var currentTime = new Date();
+  var tempTime = new Date();
   if (typeof(Storage) !== "undefined") {
-      localStorage.setItem("alert", currentTime.setDate(currentTime.getDate() + 30));
+    var newTime = tempTime.setDate(tempTime.getDate() + 30)
+      localStorage.setItem("alert", newTime);
   } else {
       // Sorry! No Web Storage support..
   }
