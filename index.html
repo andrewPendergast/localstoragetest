@@ -17,7 +17,7 @@ $(document).ready(function() {
 function setLocalStorage(){
   var currentTime = new Date();
   if (typeof(Storage) !== "undefined") {
-      localStorage.setItem("alert", currentTime.getDate() + 30);
+      localStorage.setItem("alert", currentTime.setDate(currentTime.getDate() + 30));
   } else {
       // Sorry! No Web Storage support..
   }
