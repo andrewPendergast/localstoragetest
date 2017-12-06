@@ -9,18 +9,25 @@
 <body>
 <script>
 $(document).ready(function() {
-  var currentTime = new Date();
+  var currentDate= new Date();
+  var alertMessage = $('#message').html();
   var localStorageResult = localStorage.getItem("alert")
-  if (localStorageResult >= currentTime ) {
+  if (localStorageResult && ( localStorageResult.expirationDate >= currentDate || localStorageResult.alertMessage != alertMessage )) {
     $('#message').hide();
-    console.log(localStorageResult.toISOString);
+  }
+  else {
+    $('#message').show();
   }
  });
 function setLocalStorage(){
-  var tempTime = new Date();
+  var expirationDate = new Date();
+  var thirtyDays = expirationDate.getDate() + 30;
+  expirationDate = expirationDate.setDate(thirtyDays);
+  var alertMessage = $('#message').html();
+  var localStorageItem = {'alertMessage' : alertMessage, 'expirationDate' : expirationDate}
+
   if (typeof(Storage) !== "undefined") {
-    var newTime = tempTime.setDate(tempTime.getDate() + 30)
-      localStorage.setItem("alert", newTime);
+      localStorage.setItem("alert", localStorageItem);
   } else {
       // Sorry! No Web Storage support..
   }
